@@ -11,15 +11,3 @@ export { FacebookClient } from './platforms/facebook/client.js';
 export * from './src/tools.js';
 export * from './src/prompts.js';
 export * from './src/handlers.js';
-
-// Start server if run directly (for backwards compatibility with old scripts)
-if (import.meta.url === `file://${process.argv[1]}`) {
-  import('./src/index.js').then(({ server }) => {
-    import('@modelcontextprotocol/sdk/server/stdio.js').then(({ StdioServerTransport }) => {
-      server.connect(new StdioServerTransport()).catch((error) => {
-        console.error('Failed to start server:', error);
-        process.exit(1);
-      });
-    });
-  });
-}
